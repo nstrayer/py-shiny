@@ -50,10 +50,19 @@ app_ui = c.page(
             ui.input_switch("show_margins", "Show marginal plots", value=True),
         ),
         ui.output_ui("value_boxes"),
+        c.greeting_card("Hi there, from Lit"),
         x.ui.output_plot("scatter", fill=True),
         fill=True,
         fillable=True,
     ),
+    {
+        "style": """
+        --primary-color: purple;
+        --bg-color: white;
+        --size-md: 25px;
+        --font-family: cursive;
+        """
+    },
 )
 
 

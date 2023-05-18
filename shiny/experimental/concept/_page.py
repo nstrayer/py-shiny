@@ -7,6 +7,7 @@ from htmltools import TagAttrs, TagChild, css, tags
 from ... import ui
 from ..ui._css import CssUnit, validate_css_unit
 from ..ui._fill import bind_fill_role
+from ._htmldeps import page_dep
 
 
 def page(
@@ -27,9 +28,14 @@ def page(
     return ui.page_bootstrap(
         tags.head(tags.style("html { height: 100%; }")),
         bind_fill_role(
-            tags.body("hello, world", class_="bslib-page-fill", style=style),
+            tags.body(
+                class_="bslib-page-fill",
+                style=style,
+                *args,
+            ),
             container=True,
         ),
+        page_dep(),
         title=title,
         lang=lang,
     )
