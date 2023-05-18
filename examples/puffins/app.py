@@ -51,7 +51,9 @@ app_ui = c.page(
         ),
         ui.output_ui("value_boxes"),
         c.greeting_card("Hi there, from Lit"),
-        x.ui.output_plot("scatter", fill=True),
+        c.tabset(
+            x.ui.output_plot("scatter", fill=True),
+        ),
         fill=True,
         fillable=True,
     ),
@@ -60,7 +62,6 @@ app_ui = c.page(
         --primary-color: purple;
         --bg-color: white;
         --size-md: 25px;
-        --font-family: cursive;
         """
     },
 )

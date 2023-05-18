@@ -7,7 +7,7 @@ from htmltools import TagAttrs, TagChild, css, tags
 from ... import ui
 from ..ui._css import CssUnit, validate_css_unit
 from ..ui._fill import bind_fill_role
-from ._htmldeps import page_dep
+from ._htmldeps import page_dep, tailwind_dep
 
 
 def page(
@@ -36,6 +36,7 @@ def page(
             container=True,
         ),
         page_dep(),
+        tailwind_dep(),
         title=title,
         lang=lang,
     )

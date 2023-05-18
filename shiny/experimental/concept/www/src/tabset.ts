@@ -1,11 +1,9 @@
-import {
-  LitElement,
-  html,
-  css,
-} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { LitElement, html, css } from "lit";
 
-// Write hello world to the console in large green letters
-export class GreetingCard extends LitElement {
+export class Tabset extends LitElement {
+  greeting: string;
+  planet: string;
+
   static properties = {
     greeting: {},
     planet: {},
@@ -16,19 +14,14 @@ export class GreetingCard extends LitElement {
   // via CSS custom properties.
   static styles = css`
     :host {
-      display: inline-block;
+      display: block;
       padding: var(--size-md, 12px);
       font-family: var(--font-family, sans-serif);
     }
 
-    .planet {
-      background: var(--primary-color, steelblue);
-      color: white;
-      padding: var(--size-sm, 4px);
-    }
-
-    .card-body {
-      background: var(--bg-color, lightgrey);
+    .tabset {
+      background-color: var(--bg-color, lightgrey);
+      outline: 1px solid var(--border-color, black);
     }
   `;
 
@@ -47,20 +40,15 @@ export class GreetingCard extends LitElement {
   // and child nodes/text.
   render() {
     return html`
-      <span @click=${this.togglePlanet}
-        >${this.greeting}
-        <span class="planet">${this.planet}</span>
-        <div class="card-body">
+      <div class="tabset">
+        <h2>Tabset</h2>
+        <div>
+          Contents to go here
           <slot></slot>
         </div>
-      </span>
+      </div>
     `;
   }
-
-  // Event handlers can update the state of @properties on the element
-  // instance, causing it to re-render
-  togglePlanet() {
-    this.planet = this.planet === "World" ? "Mars" : "World";
-  }
 }
-customElements.define("greeting-card", GreetingCard);
+
+customElements.define("shiny-tabset", Tabset);

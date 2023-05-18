@@ -108,3 +108,5 @@ docs/source/reference/
 
 .DS_Store
 .Rproj.user
+
+shiny/experimental/concept/www/node_modules/
