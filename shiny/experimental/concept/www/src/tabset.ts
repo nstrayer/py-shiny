@@ -1,7 +1,10 @@
 import { LitElement, html, css } from "lit";
 
 export class Tabset extends LitElement {
-  static properties = {};
+  tab_names: string[];
+  static properties = {
+    tab_names: {},
+  };
 
   // Styles are scoped to this element: they won't conflict with styles
   // on the main page or in other components. Styling API can be exposed
@@ -34,14 +37,14 @@ export class Tabset extends LitElement {
       padding: var(--size-fluid-2);
     }
 
-    ::slotted(.header),
+    .header,
     ::slotted(.footer) {
       background-image: var(--accent-gradient, var(--gradient-7));
       color: var(--stone-1);
       padding-block: var(--size-fluid-1);
     }
 
-    ::slotted(.header) {
+    .header {
       grid-area: header;
       width: 100%;
       font-family: var(--font-sans);
@@ -69,6 +72,27 @@ export class Tabset extends LitElement {
 
   constructor() {
     super();
+    this.tab_names = [];
+  }
+
+  handleSlotchange(e: Event) {
+    const slot = e.target as HTMLSlotElement | null;
+
+    if (!slot) return;
+
+    const tab_names = slot
+      .assignedNodes({ flatten: true })
+      .filter(node_is_tab)
+      .map((node) => {
+        const el = node as HTMLElement;
+        // Temporarily turn off display of these tabs
+        el.style.display = "none";
+        return el.dataset["tabName"] as string;
+      });
+
+    if (tab_names.length > 0) {
+      this.tab_names = tab_names;
+    }
   }
 
   // The render() method is called any time reactive properties change.
@@ -79,10 +103,21 @@ export class Tabset extends LitElement {
   render() {
     return html`
       <div class="tabset">
-        <slot></slot>
+        <div class="header">
+          <slot name="header"></slot>
+          ${this.tab_names.length > 0 ? this.tab_names.join(", ") : "No tabs"}
+        </div>
+        <div class="sidebar">
+          <slot name="sidebar"></slot>
+        </div>
+        <slot @slotchange=${this.handleSlotchange}></slot>
       </div>
     `;
   }
 }
 
 customElements.define("shiny-tabset", Tabset);
+
+function node_is_tab(node: Node): boolean {
+  return node instanceof HTMLElement && node.classList.contains("shiny-tab");
+}

@@ -83,6 +83,6 @@ def sidebar(
     --------
     ~htmltools.Tag
     """
+    kwargs["slot"] = "sidebar"
     sidebar_tag = Tag("shiny-sidebar", *args, _add_ws=_add_ws, **kwargs)
-    sidebar_tag.add_class("sidebar")
     return sidebar_tag

@@ -36,7 +36,15 @@ app_ui = c.page(
     c.tabset(
         ui.tags.div(
             "Puffins are cool",
-            {"class": "header"}
+            {"slot": "header"}
+        ),
+        ui.tags.div(
+            "I'm a tab!",
+            {"class": "shiny-tab", "data-tab-name": "tab1"}
+        ),
+        ui.tags.div(
+            "I'm a tab 2!",
+            {"class": "shiny-tab", "data-tab-name": "tab2"}
         ),
         c.sidebar(
             # Artwork by @allison_horst
@@ -62,6 +70,9 @@ app_ui = c.page(
             ui.input_switch("by_species", "Show species", value=True),
             ui.input_switch("show_margins", "Show marginal plots", value=True),
         ),
+        # c.sidebar(
+        #     ui.tags.h1("I'm another sidebar!"),
+        # ),
         ui.tags.div(
             ui.output_ui("value_boxes"),
             x.ui.output_plot("scatter", fill=True),
