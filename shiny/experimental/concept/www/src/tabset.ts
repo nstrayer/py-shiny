@@ -20,8 +20,8 @@ export class Tabset extends LitElement {
     }
 
     .tabset {
-      background-color: var(--bg-color, lightgrey);
       outline: 1px solid var(--border-color, black);
+      border-radius: var(--radius-2);
     }
   `;
 

@@ -1,13 +1,13 @@
 {
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "python.formatting.provider": "black",
-    "python.linting.flake8Enabled": true,
-    "editor.tabSize": 2,
-    "files.encoding": "utf8",
-    "files.eol": "\n",
-    "[python]": {
-        "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "editor.tabSize": 2,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "[python]": {
+    "editor.formatOnSave": true,
         "editor.tabSize": 4,
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
@@ -20,9 +20,20 @@
     "files.exclude": {
         "**/__pycache__": true,
         "build/**": true
-    },
-    "autoDocstring.guessTypes": false,
-    "search.exclude": {
-        "build/**": true
-    },
+  },
+  "autoDocstring.guessTypes": false,
+  "search.exclude": {
+    "build/**": true
+  },
+  "cssvar.files": [
+    // if you have an alternative path to where your styles are located
+    // you can add it in this array of files
+    "shiny/experimental/concept/www/dist/open-props.min.css"
+  ],
+
+  // Do not ignore node_modules css files, which is ignored by default
+  "cssvar.ignore": [],
+
+  // add support for autocomplete in JS or JS like files
+  "cssvar.extensions": ["css", "jsx", "tsx", "ts"]
 }

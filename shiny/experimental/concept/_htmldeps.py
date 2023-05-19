@@ -17,19 +17,9 @@ def page_dep() -> HTMLDependency:
             "package": "shiny",
             "subdir": str(ex_www_path),
         },
+        stylesheet={"href": "open-props.min.css"},
         script=[
             {"src": "greeting-card.js", "type": "module"},
             {"src": "tabset.js", "type": "module"},
         ],
-    )
-
-def tailwind_dep() -> HTMLDependency:
-    return HTMLDependency(
-        name="tailwind",
-        version=shiny_package_version,
-        source={
-            "package": "shiny",
-            "subdir": str(ex_www_path),
-        },
-        stylesheet={"href": "tailwind_bundle.css"},
     )
