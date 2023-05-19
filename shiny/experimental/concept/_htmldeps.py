@@ -21,5 +21,6 @@ def page_dep() -> HTMLDependency:
         script=[
             {"src": "greeting-card.js", "type": "module"},
             {"src": "tabset.js", "type": "module"},
+            {"src": "sidebar.js", "type": "module"},
         ],
     )

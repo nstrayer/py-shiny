@@ -23,40 +23,55 @@ species: List[str] = df["Species"].unique().tolist()
 species.sort()
 
 app_theme = {
-    "style": """
-    --primary-color: purple;
-    --bg-color: white;
-    --size-md: 25px;
-    """
+    # "style": """
+    # --sidebar-bg-color: var(--orange-9);
+    # --sidebar-color: white;
+    # --accent-gradient: var(--gradient-1), var(--noise-5);
+    # """
 }
+
 
 app_ui = c.page(
     shinyswatch.theme.pulse(),
     c.tabset(
-        # Artwork by @allison_horst
-        ui.tags.img(
-            src="palmerpenguins.png", width="80%", class_="mt-0 mb-2 mx-auto"
+        ui.tags.div(
+            "Puffins are cool",
+            {"class": "header"}
         ),
-        ui.input_selectize(
-            "xvar",
-            "X variable",
-            numeric_cols,
-            selected="Bill Length (mm)",
+        c.sidebar(
+            # Artwork by @allison_horst
+            ui.tags.img(
+                src="palmerpenguins.png", width="80%", class_="mt-0 mb-2 mx-auto"
+            ),
+            ui.input_selectize(
+                "xvar",
+                "X variable",
+                numeric_cols,
+                selected="Bill Length (mm)",
+            ),
+            ui.input_selectize(
+                "yvar",
+                "Y variable",
+                numeric_cols,
+                selected="Bill Depth (mm)",
+            ),
+            ui.input_checkbox_group(
+                "species", "Filter by species", species, selected=species
+            ),
+            ui.hr(),
+            ui.input_switch("by_species", "Show species", value=True),
+            ui.input_switch("show_margins", "Show marginal plots", value=True),
         ),
-        ui.input_selectize(
-            "yvar",
-            "Y variable",
-            numeric_cols,
-            selected="Bill Depth (mm)",
+        ui.tags.div(
+            ui.output_ui("value_boxes"),
+            x.ui.output_plot("scatter", fill=True),
+            {"class": "main"}
         ),
-        ui.input_checkbox_group(
-            "species", "Filter by species", species, selected=species
+        ui.tags.div(
+            ui.tags.span("Experimental Shiny"),
+            {"class": "footer"}
         ),
-        ui.hr(),
-        ui.input_switch("by_species", "Show species", value=True),
-        ui.input_switch("show_margins", "Show marginal plots", value=True),
-        ui.output_ui("value_boxes"),
-        x.ui.output_plot("scatter", fill=True),
+        title="My title is Puffins",
     ),
     app_theme,
 )
