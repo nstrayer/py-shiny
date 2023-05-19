@@ -6,7 +6,7 @@ from htmltools import HTMLDependency
 
 from shiny import __version__ as shiny_package_version
 
-ex_www_path = PurePath(__file__).parent / "www/dist"
+ex_www_path = PurePath(__file__).parent / "www/out"
 
 
 def page_dep() -> HTMLDependency:

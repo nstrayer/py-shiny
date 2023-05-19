@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "out",
     "module": "ES2020",
     "lib": ["ES2023", "DOM"],
     "allowJs": true,
