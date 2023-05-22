@@ -1,9 +1,12 @@
 import { LitElement, html, css } from "lit";
 
+type TabElements = { name: string; el: HTMLElement }[];
 export class Tabset extends LitElement {
-  tab_names: string[];
+  tabs: TabElements = [];
+  selected_tab_index: number;
   static properties = {
-    tab_names: {},
+    tabs: {},
+    selected_tab_index: {},
   };
 
   // Styles are scoped to this element: they won't conflict with styles
@@ -13,6 +16,7 @@ export class Tabset extends LitElement {
     :host {
       display: block;
       font-family: var(--font-family, sans-serif);
+      height: 100%;
     }
 
     .tabset {
@@ -29,16 +33,31 @@ export class Tabset extends LitElement {
         "footer  footer";
     }
 
-    .tabset > * {
-      min-width: 0;
+    .tab {
+      margin-inline: var(--size-1);
+      padding: var(--size-1);
+      cursor: pointer;
+      position: relative;
     }
 
-    ::slotted(*) {
-      padding: var(--size-fluid-2);
+    .selected-tab::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: var(--size-1);
+      right: var(--size-1);
+      height: var(--border-size-3);
+      border-radius: var(--radius-1);
+      background-color: currentColor;
+    }
+
+    .tabset > * {
+      min-width: 0;
+      min-height: 0;
     }
 
     .header,
-    ::slotted(.footer) {
+    .footer {
       background-image: var(--accent-gradient, var(--gradient-7));
       color: var(--stone-1);
       padding-block: var(--size-fluid-1);
@@ -46,33 +65,54 @@ export class Tabset extends LitElement {
 
     .header {
       grid-area: header;
-      width: 100%;
       font-family: var(--font-sans);
       font-weight: var(--font-weight-3);
       font-size: var(--font-size-fluid-1);
       margin: 0;
     }
 
-    ::slotted(.sidebar) {
+    .header,
+    .footer {
+      margin: 0;
+      padding-inline: var(--size-fluid-2);
+      display: flex;
+      gap: var(--size-3);
+    }
+
+    .divider {
+      background-color: var(--border-color, black);
+      width: var(--border-size-1);
+      height: 100%;
+    }
+
+    .sidebar {
       padding: 0;
       grid-area: sidebar;
       background-color: var(--sidebar-bg-color, var(--stone-1));
       color: var(--sidebar-color, var(--stone-7));
     }
 
-    ::slotted(.main) {
+    .main {
       grid-area: content;
       padding: var(--size-fluid-3);
     }
 
-    ::slotted(.footer) {
+    .footer {
       grid-area: footer;
+    }
+
+    .footer::empty {
+      display: none;
+    }
+
+    ::slotted(.selected) {
+      display: block;
     }
   `;
 
   constructor() {
     super();
-    this.tab_names = [];
+    this.selected_tab_index = 0;
   }
 
   handleSlotchange(e: Event) {
@@ -80,19 +120,36 @@ export class Tabset extends LitElement {
 
     if (!slot) return;
 
-    const tab_names = slot
-      .assignedNodes({ flatten: true })
-      .filter(node_is_tab)
-      .map((node) => {
-        const el = node as HTMLElement;
-        // Temporarily turn off display of these tabs
-        el.style.display = "none";
-        return el.dataset["tabName"] as string;
-      });
+    const nodes_in_slot = slot.assignedNodes({ flatten: true });
 
-    if (tab_names.length > 0) {
-      this.tab_names = tab_names;
-    }
+    this.tabs = nodes_in_slot.reduce<TabElements>((all, node) => {
+      if (
+        node instanceof HTMLElement &&
+        node.tagName.toLowerCase() === "shiny-tab"
+      ) {
+        const tab_name = node.attributes.getNamedItem("name")?.value;
+
+        if (!tab_name) {
+          return all;
+        }
+
+        all.push({ name: tab_name, el: node });
+      }
+
+      return all;
+    }, []);
+
+    this.select_tab();
+  }
+
+  select_tab(tab_index: number = this.selected_tab_index) {
+    this.selected_tab_index = tab_index;
+    this.tabs.forEach((tab, i) => {
+      const is_selected = i === tab_index;
+      tab.el.style.display = is_selected ? "block" : "none";
+      // Make sure that screen readers know to not include the hidden tabs
+      tab.el.inert = !is_selected;
+    });
   }
 
   // The render() method is called any time reactive properties change.
@@ -105,19 +162,34 @@ export class Tabset extends LitElement {
       <div class="tabset">
         <div class="header">
           <slot name="header"></slot>
-          ${this.tab_names.length > 0 ? this.tab_names.join(", ") : "No tabs"}
+          <div class="divider"></div>
+          <div class="tabs">
+            ${this.tabs.map(
+              (tab, i) =>
+                html`<span
+                  class="tab ${i === this.selected_tab_index
+                    ? "selected-tab"
+                    : ""}"
+                  @click=${() => this.select_tab(i)}
+                  >${tab.name}</span
+                >`
+            )}
+          </div>
         </div>
         <div class="sidebar">
           <slot name="sidebar"></slot>
         </div>
-        <slot @slotchange=${this.handleSlotchange}></slot>
+        <div class="main">
+          <slot @slotchange=${this.handleSlotchange}></slot>
+        </div>
+        <div class="footer">
+          <slot name="footer"></slot>
+        </div>
       </div>
     `;
   }
 }
 
-customElements.define("shiny-tabset", Tabset);
-
 function node_is_tab(node: Node): boolean {
-  return node instanceof HTMLElement && node.classList.contains("shiny-tab");
+  return node instanceof HTMLElement && "shiny-tab" in node.dataset;
 }

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "open-props": "cp node_modules/open-props/open-props.min.css out",
-    "dev": "esbuild src/*ts --bundle --minify --sourcemap --outdir=out"
+    "dev": "esbuild src/components.ts --bundle --minify --sourcemap --outdir=out"
   },
   "dependencies": {
     "lit": "^2.7.4"

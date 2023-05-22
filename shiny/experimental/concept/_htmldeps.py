@@ -19,8 +19,6 @@ def page_dep() -> HTMLDependency:
         },
         stylesheet={"href": "open-props.min.css"},
         script=[
-            {"src": "greeting-card.js", "type": "module"},
-            {"src": "tabset.js", "type": "module"},
-            {"src": "sidebar.js", "type": "module"},
+            {"src": "components.js", "type": "module"},
         ],
     )

@@ -1,4 +1,5 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, css, html } from "lit";
+import { set_el_attr } from "./set_el_attr";
 
 export class Sidebar extends LitElement {
   is_open: boolean;
@@ -16,13 +17,16 @@ export class Sidebar extends LitElement {
       font-family: var(--font-family, sans-serif);
       --transition: 0.4s var(--ease-3);
       --toggle-w: 20px;
+      height: 100%;
+      position: relative;
     }
 
     .sidebar {
+      height: 100%;
+      overflow: scroll;
+      padding: var(--size-fluid-1);
       --w: var(--sidebar-width, 250px);
       margin: 0;
-      padding: var(--size-fluid-2);
-      position: relative;
       transition: width var(--transition), padding var(--transition);
     }
 
@@ -43,7 +47,7 @@ export class Sidebar extends LitElement {
       min-width: 0;
     }
 
-    .sidebar.closed .open-toggle {
+    .sidebar.closed + .open-toggle {
       transform: translateX(var(--toggle-w)) scaleX(-1);
       transition: transform var(--transition);
     }
@@ -51,6 +55,7 @@ export class Sidebar extends LitElement {
     .open-toggle {
       position: absolute;
       top: var(--size-1);
+      font-size: var(--font-size-3);
       border-radius: var(--radius-2) 0 0 var(--radius-2);
       right: 0;
       width: var(--toggle-w);
@@ -70,19 +75,20 @@ export class Sidebar extends LitElement {
     // By making is_open a property we allow the user to set its initial state or toggle
     // from outside the component
     this.is_open = true;
+    set_el_attr(this, "slot", "sidebar");
   }
 
   render() {
     return html`
       <div class="sidebar ${this.is_open ? "open" : "closed"}">
         <slot></slot>
-        <div
-          @click=${this.toggle_open}
-          title=${this.is_open ? "Close sidebar" : "Open sidebar"}
-          class="open-toggle"
-        >
-          👈
-        </div>
+      </div>
+      <div
+        @click=${this.toggle_open}
+        title=${this.is_open ? "Close sidebar" : "Open sidebar"}
+        class="open-toggle"
+      >
+        👈
       </div>
     `;
   }
@@ -91,5 +97,3 @@ export class Sidebar extends LitElement {
     this.is_open = !this.is_open;
   }
 }
-
-customElements.define("shiny-sidebar", Sidebar);

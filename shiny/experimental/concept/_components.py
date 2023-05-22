@@ -57,6 +57,34 @@ def tabset(
 
     return Tag("shiny-tabset", *args, _add_ws=_add_ws, **kwargs)
 
+def tab(
+    *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: TagAttrValue
+) -> Tag:
+    """
+    Create a <shiny-tab> tag.
+
+    An experimental web-component for creating greeting cards.
+
+    Parameters
+    ----------
+    *args
+        Child elements to this tag.
+    _add_ws
+        Whether whitespace should be added around this tag.
+    **kwargs
+        Attributes to this tag.
+
+    Returns
+    -------
+    Tag
+
+    See Also
+    --------
+    ~htmltools.Tag
+    """
+
+    return Tag("shiny-tab", *args, _add_ws=_add_ws, **kwargs)
+
 
 def sidebar(
     *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: TagAttrValue
@@ -83,6 +111,4 @@ def sidebar(
     --------
     ~htmltools.Tag
     """
-    kwargs["slot"] = "sidebar"
-    sidebar_tag = Tag("shiny-sidebar", *args, _add_ws=_add_ws, **kwargs)
-    return sidebar_tag
+    return Tag("shiny-sidebar", *args, _add_ws=_add_ws, **kwargs)

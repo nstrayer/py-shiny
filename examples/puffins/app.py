@@ -8,6 +8,7 @@ import pandas as pd
 import seaborn as sns
 import shinyswatch
 from colors import bg_palette, palette
+from htmltools import Tag
 
 import shiny.experimental as x
 import shiny.experimental.concept as c
@@ -23,29 +24,25 @@ species: List[str] = df["Species"].unique().tolist()
 species.sort()
 
 app_theme = {
-    # "style": """
-    # --sidebar-bg-color: var(--orange-9);
-    # --sidebar-color: white;
-    # --accent-gradient: var(--gradient-1), var(--noise-5);
-    # """
+    "style": """
+    --sidebar-bg-color: var(--stone-8);
+    --sidebar-color: white;
+    --accent-gradient: linear-gradient(
+      37deg in oklab,
+      oklch(55% .45 350) 0%, oklch(100% .4 95) 115% 115%
+    );
+    """
 }
-
 
 app_ui = c.page(
     shinyswatch.theme.pulse(),
     c.tabset(
-        ui.tags.div(
-            "Puffins are cool",
-            {"slot": "header"}
+        c.tab(
+            ui.output_ui("value_boxes"),
+            x.ui.output_plot("scatter", fill=True),
+            name="Plots"
         ),
-        ui.tags.div(
-            "I'm a tab!",
-            {"class": "shiny-tab", "data-tab-name": "tab1"}
-        ),
-        ui.tags.div(
-            "I'm a tab 2!",
-            {"class": "shiny-tab", "data-tab-name": "tab2"}
-        ),
+        c.tab("Tab component2", name="Others"),
         c.sidebar(
             # Artwork by @allison_horst
             ui.tags.img(
@@ -73,16 +70,11 @@ app_ui = c.page(
         # c.sidebar(
         #     ui.tags.h1("I'm another sidebar!"),
         # ),
+        Tag("shiny-footer", ui.tags.span("Experimental Shiny")),
         ui.tags.div(
-            ui.output_ui("value_boxes"),
-            x.ui.output_plot("scatter", fill=True),
-            {"class": "main"}
-        ),
-        ui.tags.div(
-            ui.tags.span("Experimental Shiny"),
-            {"class": "footer"}
-        ),
-        title="My title is Puffins",
+            "Puffins are cool",
+            {"slot": "header"}
+        )
     ),
     app_theme,
 )

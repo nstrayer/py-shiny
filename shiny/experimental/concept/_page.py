@@ -2,40 +2,30 @@ from __future__ import annotations
 
 from typing import Optional
 
-from htmltools import TagAttrs, TagChild, css, tags
+from htmltools import TagAttrs, TagChild, tags
 
-from ... import ui
-from ..ui._css import CssUnit, validate_css_unit
-from ..ui._fill import bind_fill_role
+from ...ui._html_dependencies import bootstrap_deps
 from ._htmldeps import page_dep
 
 
 def page(
     *args: TagChild | TagAttrs,
-    padding: Optional[CssUnit] = None,
-    gap: Optional[CssUnit] = None,
-    fill_mobile: bool = False,
     title: Optional[str] = None,
     lang: Optional[str] = None,
 ):
-    style = css(
-        # TODO: validate_css_padding(padding)
-        padding=validate_css_unit(padding),
-        gap=validate_css_unit(gap),
-        __bslib_page_fill_mobile_height="100%" if fill_mobile else "auto",
-    )
-
-    return ui.page_bootstrap(
-        tags.head(tags.style("html { height: 100%; }")),
-        bind_fill_role(
-            tags.body(
-                class_="bslib-page-fill",
-                style=style,
-                *args,
-            ),
-            container=True,
+    head = tags.title(title) if title else None
+    return tags.html(
+        tags.head(
+            head,
+            tags.style("""
+                       html { height: 100%; }
+                       body { height: 100%; min-height: 100%; }
+                       """)
+        ),
+        tags.body(
+            *bootstrap_deps(),
+            *args
         ),
         page_dep(),
-        title=title,
-        lang=lang,
+        lang=lang
     )
