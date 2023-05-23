@@ -8,7 +8,8 @@
   "devDependencies": {
     "esbuild": "^0.17.19",
     "open-props": "^1.5.8",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "@types/rstudio-shiny": "https://github.com/rstudio/shiny#v1.7.4"
   },
   "scripts": {
     "open-props": "cp node_modules/open-props/open-props.min.css out",

@@ -124,6 +124,67 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
+"@types/bootstrap-datepicker@0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap-datepicker/-/bootstrap-datepicker-0.0.14.tgz#89bc5816dd0b802bf8d4923cf5461e2c98cbb450"
+  integrity sha512-ZBwEUuwYpehEHWtkaIDl55N3F6dPz6xEsoPW5esCZdtuhuZdNC/ebFV2n48kATcY5S2HD3V0O5/J8nuEgVk9fQ==
+  dependencies:
+    "@types/jquery" "*"
+
+"@types/bootstrap@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-3.4.0.tgz#7e74a2421b3984ce53ab459e979a99a78dd802c6"
+  integrity sha512-LS05hVAAsX86qbHg7W+ydwBlNHrVCoFw6wEP3/uW4eYmRXl08bWmPeN/+onM+8qZTFfDgUlG/OItJI8SW972oQ==
+  dependencies:
+    "@types/jquery" "*"
+
+"@types/datatables.net@^1.10.19":
+  version "1.10.24"
+  resolved "https://registry.yarnpkg.com/@types/datatables.net/-/datatables.net-1.10.24.tgz#8b432218d72b012448dbf18ce18ee900a3f2f1ec"
+  integrity sha512-Qb82/7Gn0bU36YLiv0MdaqKzhTLfRO9qPvFdkW0miQ6ATMG47aoPn2r//zTvGd3oPSt+Lzp1HSsjP6rZRuki8g==
+  dependencies:
+    "@types/jquery" "*"
+
+"@types/ion-rangeslider@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@types/ion-rangeslider/-/ion-rangeslider-2.3.0.tgz#dd089921c21acebc266c37e95d191e721ea21750"
+  integrity sha512-u1k2Ekfg7E/ByCrtqtMk98g3QMXnMyIjCKU397YfjhWnTrms2BteoTanMqe0MJ1zyBBiP6+bwbc7P4cU+RiL+w==
+
+"@types/jquery@*":
+  version "3.5.16"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.16.tgz#632131baf30951915b0317d48c98e9890bdf051d"
+  integrity sha512-bsI7y4ZgeMkmpG9OM710RRzDFp+w4P1RGiIt30C1mSBT+ExCleeh4HObwgArnDFELmRrOpXgSYN9VF1hj+f1lw==
+  dependencies:
+    "@types/sizzle" "*"
+
+"@types/jquery@3.5.14":
+  version "3.5.14"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.14.tgz#ac8e11ee591e94d4d58da602cb3a5a8320dee577"
+  integrity sha512-X1gtMRMbziVQkErhTQmSe2jFwwENA/Zr+PprCkF63vFq+Yt5PZ4AlKqgmeNlwgn7dhsXEK888eIW2520EpC+xg==
+  dependencies:
+    "@types/sizzle" "*"
+
+"@types/rstudio-shiny@https://github.com/rstudio/shiny#v1.7.4":
+  version "1.7.4"
+  resolved "https://github.com/rstudio/shiny#4d276b307e73b1d312833f03a873e5c16a2dad48"
+  dependencies:
+    "@types/bootstrap" "3.4.0"
+    "@types/bootstrap-datepicker" "0.0.14"
+    "@types/datatables.net" "^1.10.19"
+    "@types/ion-rangeslider" "2.3.0"
+    "@types/jquery" "3.5.14"
+    "@types/selectize" "0.12.34"
+
+"@types/selectize@0.12.34":
+  version "0.12.34"
+  resolved "https://registry.yarnpkg.com/@types/selectize/-/selectize-0.12.34.tgz#24a79e3176103019d2371ae9fc8487dcd1336cea"
+  integrity sha512-OAXHsgsHBMJBHnB6QrFlHVa0+gCE5lgjdpwJDlJLRhrcsM4I2VXrm2vsG00//Rpdm4XgnX17vrBpjHlWOk1ALw==
+
+"@types/sizzle@*":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.3.tgz#ff5e2f1902969d305225a047c8a0fd5c915cebef"
+  integrity sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==
+
 "@types/trusted-types@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.3.tgz#a136f83b0758698df454e328759dbd3d44555311"

@@ -1,11 +1,45 @@
 import { LitElement, css, html } from "lit";
 
+const Shiny = window.Shiny as Shiny;
+
+export class StarRatingInputBinding extends Shiny.InputBinding {
+  constructor() {
+    super();
+  }
+
+  find(scope: HTMLElement): JQuery<HTMLElement> {
+    return $(scope).find("star-rating");
+  }
+
+  getId(el: HTMLElement): string {
+    return el.id;
+  }
+
+  getValue(el: HTMLElement) {
+    return (el as StarRating).rating;
+  }
+
+  subscribe(el: StarRating, callback: (x: boolean) => void): void {
+    el.onChangeCallback = callback;
+  }
+
+  unsubscribe(el: StarRating): void {
+    el.onChangeCallback = (x: boolean) => { };
+  }
+}
+
+
+Shiny.inputBindings.register(new StarRatingInputBinding(), "StarRatingInputBinding");
+
+
 export class StarRating extends LitElement {
   static properties = {
     rating: {},
   };
 
   rating: number;
+  onChangeCallback: (x: boolean) => void;
+
   // Styles are scoped to this element: they won't conflict with styles
   // on the main page or in other components. Styling API can be exposed
   // via CSS custom properties.
@@ -24,14 +58,17 @@ export class StarRating extends LitElement {
   constructor() {
     super();
     this.rating = 0;
+    this.onChangeCallback = (x: boolean) => { };
   }
 
   add_rating() {
     this.rating += 1;
+    this.onChangeCallback(true);
   }
 
   remove_rating() {
     this.rating -= 1;
+    this.onChangeCallback(true);
   }
 
   render() {
@@ -66,30 +103,3 @@ export class StarRating extends LitElement {
     `;
   }
 }
-
-// // step i
-// var binding = new Shiny.InputBinding();
-
-// // step ii
-// $.extend(binding, {
-
-//   find: function(scope) {
-//     ...
-//   },
-
-//   initialize: function(el){
-//     ...
-//   },
-
-//   getValue: function(el) {
-//     ...
-//   },
-
-//   subscribe: function(el, callback) {
-//     ...
-//   }
-
-// });
-
-// // step iii
-// Shiny.inputBindings.register(binding);

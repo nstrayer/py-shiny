@@ -33,15 +33,12 @@ app_theme = {
 }
 
 app_ui = c.page(
-    ui.head_content(
-        ui.tags.style(
-            ":not(:defined) { opacity: 0.1;}"
-        )
-    ),
+    ui.head_content(ui.tags.style(":not(:defined) { visibility: hidden;}")),
     shinyswatch.theme.pulse(),
     c.tabset(
         c.tab(
-            Tag("star-rating"),
+            Tag("star-rating", id="foo"),
+            Tag("star-rating", id="foo1"),
             Tag(
                 "shiny-collapsible",
                 ui.output_ui("value_boxes"),
@@ -56,7 +53,7 @@ app_ui = c.page(
             Tag("shiny-collapsible", "To Right", dir="to_right"),
             Tag("shiny-collapsible", "To Bottom", dir="to_bottom"),
             Tag("shiny-collapsible", "To Left", dir="to_left"),
-            name="Collapser"
+            name="Collapser",
         ),
         c.sidebar(
             # Artwork by @allison_horst
@@ -81,15 +78,13 @@ app_ui = c.page(
             ui.hr(),
             ui.input_switch("by_species", "Show species", value=True),
             ui.input_switch("show_margins", "Show marginal plots", value=True),
+            ui.output_text_verbatim("txt"),
         ),
         # c.sidebar(
         #     ui.tags.h1("I'm another sidebar!"),
         # ),
         Tag("shiny-footer", ui.tags.span("Experimental Shiny")),
-        ui.tags.div(
-            "Puffins are cool",
-            {"slot": "header"}
-        )
+        ui.tags.div("Puffins are cool", {"slot": "header"}),
     ),
     app_theme,
 )
@@ -123,6 +118,11 @@ def server(input: Inputs, output: Outputs, session: Session):
             hue_order=species,
             legend=False,
         )
+
+    @output
+    @render.text
+    def txt():
+        return str(input.foo()) + ":" + str(input.foo1())
 
     @output
     @render.ui
