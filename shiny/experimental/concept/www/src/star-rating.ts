@@ -72,6 +72,7 @@ export class StarRating extends LitElement {
   }
 }
 
+customElements.define("star-rating", StarRating);
 
 
 const Shiny = window.Shiny as Shiny;

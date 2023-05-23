@@ -189,3 +189,5 @@ export class Tabset extends LitElement {
 function node_is_tab(node: Node): boolean {
   return node instanceof HTMLElement && "shiny-tab" in node.dataset;
 }
+
+customElements.define("shiny-tabset", Tabset);

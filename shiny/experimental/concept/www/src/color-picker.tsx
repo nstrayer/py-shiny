@@ -17,3 +17,5 @@ export class ColorPicker extends LitElement {
     root.render(<SketchPicker />);
   }
 }
+
+customElements.define("color-picker", ColorPicker);

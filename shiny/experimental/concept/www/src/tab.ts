@@ -32,3 +32,5 @@ export class Tab extends LitElement {
     `;
   }
 }
+
+customElements.define("shiny-tab", Tab);

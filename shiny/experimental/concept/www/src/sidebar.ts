@@ -97,3 +97,5 @@ export class Sidebar extends LitElement {
     this.is_open = !this.is_open;
   }
 }
+
+customElements.define("shiny-sidebar", Sidebar);
