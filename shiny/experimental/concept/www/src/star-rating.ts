@@ -85,10 +85,6 @@ export class StarRatingInputBinding extends Shiny.InputBinding {
     return $(scope).find("star-rating");
   }
 
-  getId(el: HTMLElement): string {
-    return el.id;
-  }
-
   getValue(el: HTMLElement) {
     return (el as StarRating).rating;
   }
