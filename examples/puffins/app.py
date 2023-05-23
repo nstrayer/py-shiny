@@ -25,8 +25,6 @@ species.sort()
 
 app_theme = {
     "style": """
-    --sidebar-bg-color: var(--stone-8);
-    --sidebar-color: white;
     --accent-gradient: linear-gradient(
       37deg in oklab,
       oklch(55% .45 350) 0%, oklch(100% .4 95) 115% 115%
@@ -38,11 +36,22 @@ app_ui = c.page(
     shinyswatch.theme.pulse(),
     c.tabset(
         c.tab(
-            ui.output_ui("value_boxes"),
+            Tag(
+                "shiny-collapsible",
+                ui.output_ui("value_boxes"),
+                dir="to_top",
+                label="Fun Facts",
+            ),
             x.ui.output_plot("scatter", fill=True),
-            name="Plots"
+            name="Plot",
         ),
-        c.tab("Tab component2", name="Others"),
+        c.tab(
+            Tag("shiny-collapsible", "To Top", dir="to_top", label="My Collapser"),
+            Tag("shiny-collapsible", "To Right", dir="to_right"),
+            Tag("shiny-collapsible", "To Bottom", dir="to_bottom"),
+            Tag("shiny-collapsible", "To Left", dir="to_left"),
+            name="Collapser"
+        ),
         c.sidebar(
             # Artwork by @allison_horst
             ui.tags.img(
