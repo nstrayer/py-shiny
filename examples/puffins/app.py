@@ -39,6 +39,7 @@ app_ui = c.page(
         c.tab(
             Tag("star-rating", id="foo"),
             Tag("star-rating", id="foo1"),
+            ui.output_text_verbatim("txt"),
             Tag(
                 "shiny-collapsible",
                 ui.output_ui("value_boxes"),
@@ -78,7 +79,6 @@ app_ui = c.page(
             ui.hr(),
             ui.input_switch("by_species", "Show species", value=True),
             ui.input_switch("show_margins", "Show marginal plots", value=True),
-            ui.output_text_verbatim("txt"),
         ),
         # c.sidebar(
         #     ui.tags.h1("I'm another sidebar!"),
