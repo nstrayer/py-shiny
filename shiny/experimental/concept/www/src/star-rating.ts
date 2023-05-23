@@ -1,37 +1,5 @@
 import { LitElement, css, html } from "lit";
 
-const Shiny = window.Shiny as Shiny;
-
-export class StarRatingInputBinding extends Shiny.InputBinding {
-  constructor() {
-    super();
-  }
-
-  find(scope: HTMLElement): JQuery<HTMLElement> {
-    return $(scope).find("star-rating");
-  }
-
-  getId(el: HTMLElement): string {
-    return el.id;
-  }
-
-  getValue(el: HTMLElement) {
-    return (el as StarRating).rating;
-  }
-
-  subscribe(el: StarRating, callback: (x: boolean) => void): void {
-    el.onChangeCallback = callback;
-  }
-
-  unsubscribe(el: StarRating): void {
-    el.onChangeCallback = (x: boolean) => { };
-  }
-}
-
-
-Shiny.inputBindings.register(new StarRatingInputBinding(), "StarRatingInputBinding");
-
-
 export class StarRating extends LitElement {
   static properties = {
     rating: {},
@@ -103,3 +71,36 @@ export class StarRating extends LitElement {
     `;
   }
 }
+
+
+
+const Shiny = window.Shiny as Shiny;
+
+export class StarRatingInputBinding extends Shiny.InputBinding {
+  constructor() {
+    super();
+  }
+
+  find(scope: HTMLElement): JQuery<HTMLElement> {
+    return $(scope).find("star-rating");
+  }
+
+  getId(el: HTMLElement): string {
+    return el.id;
+  }
+
+  getValue(el: HTMLElement) {
+    return (el as StarRating).rating;
+  }
+
+  subscribe(el: StarRating, callback: (x: boolean) => void): void {
+    el.onChangeCallback = callback;
+  }
+
+  unsubscribe(el: StarRating): void {
+    el.onChangeCallback = (x: boolean) => { };
+  }
+}
+
+
+Shiny.inputBindings.register(new StarRatingInputBinding(), "StarRatingInputBinding");
