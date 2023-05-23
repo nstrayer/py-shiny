@@ -33,9 +33,15 @@ app_theme = {
 }
 
 app_ui = c.page(
+    ui.head_content(
+        ui.tags.style(
+            ":not(:defined) { opacity: 0.1;}"
+        )
+    ),
     shinyswatch.theme.pulse(),
     c.tabset(
         c.tab(
+            Tag("star-rating"),
             Tag(
                 "shiny-collapsible",
                 ui.output_ui("value_boxes"),

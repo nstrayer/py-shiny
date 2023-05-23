@@ -20,7 +20,6 @@ export class Tab extends LitElement {
   constructor() {
     super();
     this.name = "tab";
-    this.dataset["shiny-tab"] = this.name;
     // set_el_attr(this, "")
     // this.attributes.setNamedItem(make_slot_attr("footer"));
   }
