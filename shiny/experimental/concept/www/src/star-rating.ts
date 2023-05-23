@@ -26,23 +26,18 @@ export class StarRating extends LitElement {
   constructor() {
     super();
     this.rating = 0;
-    this.onChangeCallback = (x: boolean) => { };
+    this.onChangeCallback = (x: boolean) => {};
   }
 
-  add_rating() {
-    this.rating += 1;
+  update_rating(delta: number) {
+    this.rating += delta;
+    // Tell the output binding we've changed
     this.onChangeCallback(true);
   }
-
-  remove_rating() {
-    this.rating -= 1;
-    this.onChangeCallback(true);
-  }
-
   render() {
     return html`
       <div>
-        <button class="thumb_down" @click=${this.remove_rating}>
+        <button class="thumb_down" @click=${() => this.update_rating(-1)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24"
@@ -55,7 +50,7 @@ export class StarRating extends LitElement {
           </svg>
         </button>
         <span class="rating">${this.rating}</span>
-        <button class="thumb_up" @click=${this.add_rating}>
+        <button class="thumb_up" @click=${() => this.update_rating(1)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24"
@@ -72,8 +67,6 @@ export class StarRating extends LitElement {
   }
 }
 
-
-
 const Shiny = window.Shiny as Shiny;
 
 export class StarRatingInputBinding extends Shiny.InputBinding {
@@ -85,12 +78,12 @@ export class StarRatingInputBinding extends Shiny.InputBinding {
     return $(scope).find("star-rating");
   }
 
-  getId(el: HTMLElement): string {
+  getId(el: StarRating): string {
     return el.id;
   }
 
-  getValue(el: HTMLElement) {
-    return (el as StarRating).rating;
+  getValue(el: StarRating) {
+    return el.rating;
   }
 
   subscribe(el: StarRating, callback: (x: boolean) => void): void {
@@ -98,9 +91,11 @@ export class StarRatingInputBinding extends Shiny.InputBinding {
   }
 
   unsubscribe(el: StarRating): void {
-    el.onChangeCallback = (x: boolean) => { };
+    el.onChangeCallback = (x: boolean) => {};
   }
 }
 
-
-Shiny.inputBindings.register(new StarRatingInputBinding(), "StarRatingInputBinding");
+Shiny.inputBindings.register(
+  new StarRatingInputBinding(),
+  "StarRatingInputBinding"
+);
