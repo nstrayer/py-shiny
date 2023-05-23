@@ -60,7 +60,6 @@ export class Tabset extends LitElement {
     .footer {
       background-image: var(--accent-gradient, var(--gradient-7));
       color: var(--stone-1);
-      padding-block: var(--size-fluid-1);
     }
 
     .header {
@@ -68,6 +67,7 @@ export class Tabset extends LitElement {
       font-family: var(--font-sans);
       font-weight: var(--font-weight-3);
       font-size: var(--font-size-fluid-1);
+      padding-block: var(--size-fluid-1);
       margin: 0;
     }
 
@@ -101,12 +101,8 @@ export class Tabset extends LitElement {
       grid-area: footer;
     }
 
-    .footer::empty {
-      display: none;
-    }
-
-    ::slotted(.selected) {
-      display: block;
+    .footer > ::slotted(*) {
+      padding-block: var(--size-fluid-1);
     }
   `;
 
