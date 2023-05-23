@@ -49,6 +49,10 @@ app_ui = c.page(
             name="Plot",
         ),
         c.tab(
+            Tag("color-picker", id="color"),
+            name="Color Picker",
+        ),
+        c.tab(
             Tag("shiny-collapsible", "To Top", dir="to_top", label="My Collapser"),
             Tag("shiny-collapsible", "To Right", dir="to_right"),
             Tag("shiny-collapsible", "To Bottom", dir="to_bottom"),
