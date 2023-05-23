@@ -66,3 +66,30 @@ export class StarRating extends LitElement {
     `;
   }
 }
+
+// // step i
+// var binding = new Shiny.InputBinding();
+
+// // step ii
+// $.extend(binding, {
+
+//   find: function(scope) {
+//     ...
+//   },
+
+//   initialize: function(el){
+//     ...
+//   },
+
+//   getValue: function(el) {
+//     ...
+//   },
+
+//   subscribe: function(el, callback) {
+//     ...
+//   }
+
+// });
+
+// // step iii
+// Shiny.inputBindings.register(binding);
