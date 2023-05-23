@@ -29,12 +29,12 @@ export class StarRating extends LitElement {
     this.onChangeCallback = (x: boolean) => { };
   }
 
-  add_rating() {
+  inc_rating() {
     this.rating += 1;
     this.onChangeCallback(true);
   }
 
-  remove_rating() {
+  dec_rating() {
     this.rating -= 1;
     this.onChangeCallback(true);
   }
@@ -42,7 +42,7 @@ export class StarRating extends LitElement {
   render() {
     return html`
       <div>
-        <button class="thumb_down" @click=${this.remove_rating}>
+        <button class="thumb_down" @click=${this.dec_rating}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24"
@@ -55,7 +55,7 @@ export class StarRating extends LitElement {
           </svg>
         </button>
         <span class="rating">${this.rating}</span>
-        <button class="thumb_up" @click=${this.add_rating}>
+        <button class="thumb_up" @click=${this.inc_rating}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24"
