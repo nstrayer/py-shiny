@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "outDir": "out",
     "module": "ES2020",
     "lib": ["ES2023", "DOM"],

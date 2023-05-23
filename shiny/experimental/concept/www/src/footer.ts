@@ -27,3 +27,5 @@ export class Footer extends LitElement {
     `;
   }
 }
+
+customElements.define("shiny-footer", Footer);

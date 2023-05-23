@@ -29,6 +29,7 @@ def greeting_card(
 
     return Tag("greeting-card", *args, _add_ws=_add_ws, **kwargs)
 
+
 def tabset(
     *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: TagAttrValue
 ) -> Tag:
@@ -56,6 +57,7 @@ def tabset(
     """
 
     return Tag("shiny-tabset", *args, _add_ws=_add_ws, **kwargs)
+
 
 def tab(
     *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: TagAttrValue
