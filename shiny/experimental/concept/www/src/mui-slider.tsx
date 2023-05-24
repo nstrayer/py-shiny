@@ -45,7 +45,6 @@ export class MuiSlider extends HTMLElement {
         <Slider
           {...this.elAttributes}
           aria-label="Default"
-          // valueLabelDisplay="auto"
           onChangeCommitted={(e, v) => this.handleChange(e, v)}
         />
       </CacheProvider>
@@ -54,6 +53,7 @@ export class MuiSlider extends HTMLElement {
 }
 
 customElements.define("mui-slider", MuiSlider);
+
 
 // Mui Slider Shiny input binding
 const Shiny = window.Shiny as Shiny;
@@ -85,6 +85,7 @@ Shiny.inputBindings.register(
   "MuiSliderInputBinding"
 );
 
+
 // Helper functions
 
 function getAttributesAsObject(el: HTMLElement): Record<string, string> {
@@ -95,30 +96,6 @@ function getAttributesAsObject(el: HTMLElement): Record<string, string> {
     });
     obj[camelCaseName] = attr.value;
   }
-  return obj;
-}
-
-function convertPropertiesToNumber(
-  obj: Record<string, string | number | boolean>,
-  names: string[]
-): Record<string, string | number | boolean> {
-  names.forEach((property) => {
-    if (obj.hasOwnProperty(property) && !isNaN(Number(obj[property]))) {
-      obj[property] = Number(obj[property]);
-    }
-  });
-  return obj;
-}
-
-function convertPropertiesToBool(
-  obj: Record<string, string | number | boolean>,
-  names: string[]
-): Record<string, string | number | boolean> {
-  names.forEach((property) => {
-    if (obj.hasOwnProperty(property)) {
-      obj[property] = Boolean(obj[property]);
-    }
-  });
   return obj;
 }
 
