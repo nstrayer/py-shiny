@@ -1,4 +1,6 @@
-from htmltools import Tag, TagAttrs, TagAttrValue, TagChild
+import json
+
+from htmltools import HTML, Tag, TagAttrs, TagAttrValue, TagChild, html_escape
 
 
 def greeting_card(
@@ -114,3 +116,41 @@ def sidebar(
     ~htmltools.Tag
     """
     return Tag("shiny-sidebar", *args, _add_ws=_add_ws, **kwargs)
+
+
+def mui_slider(
+    *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: object
+) -> Tag:
+    """
+    Create a <mui-slider> tag.
+
+    An experimental web-component for creating sliders.
+
+    Parameters
+    ----------
+    *args
+        Child elements to this tag.
+    _add_ws
+        Whether whitespace should be added around this tag.
+    **kwargs
+        Attributes to this tag.
+
+    Returns
+    -------
+    Tag
+
+    See Also
+    --------
+    ~htmltools.Tag
+    """
+
+    for k, v in kwargs.items():
+        kwargs[k] = attr_to_escaped_json(v)
+
+    return Tag("mui-slider", *args, _add_ws=_add_ws, **kwargs)
+
+
+def attr_to_escaped_json(x: object) -> str:
+    res = json.dumps(x)
+    res = html_escape(res, attr=True)
+    return HTML(res)

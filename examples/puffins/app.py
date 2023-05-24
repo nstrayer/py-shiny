@@ -51,6 +51,60 @@ app_ui = c.page(
         ),
         c.tab(
             Tag("color-picker", id="color"),
+            ui.div(
+                {"style": "max-width: 400px; margin-top: 15px;"},
+                ui.h4("Sliders"),
+                c.mui_slider(
+                    id="slider1",
+                    default_value=11,
+                    min=1,
+                    max=20,
+                    value_label_display="auto",
+                ),
+                c.mui_slider(
+                    id="slider2",
+                    default_value=5,
+                    min=1,
+                    max=20,
+                    value_label_display="on",
+                    size="small",
+                ),
+                c.mui_slider(
+                    id="slider3",
+                    default_value=11,
+                    min=1,
+                    max=21,
+                    step=2,
+                    value_label_display="auto",
+                    marks=True,
+                ),
+                c.mui_slider(
+                    id="slider4",
+                    default_value=20,
+                    min=0,
+                    max=100,
+                    step=None,
+                    value_label_display="auto",
+                    marks=[
+                        {
+                            "value": 0,
+                            "label": "0°C",
+                        },
+                        {
+                            "value": 20,
+                            "label": "20°C",
+                        },
+                        {
+                            "value": 37,
+                            "label": "37°C",
+                        },
+                        {
+                            "value": 100,
+                            "label": "100°C",
+                        },
+                    ],
+                ),
+            ),
             name="Color Picker",
         ),
         c.tab(
@@ -132,7 +186,7 @@ def server(input: Inputs, output: Outputs, session: Session):
     @output
     @render.text
     def current_color():
-        return str(input.color())
+        return f"{input.color()}\n{input.slider1()}\n{input.slider2()}\n{input.slider3()}\n{input.slider4()}"
 
     @output
     @render.ui
