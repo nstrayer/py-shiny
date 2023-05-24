@@ -71,8 +71,8 @@ export class MuiSliderInputBinding extends Shiny.InputBinding {
     return $(scope).find("mui-slider");
   }
 
-  getValue(el: HTMLElement) {
-    return (el as MuiSlider).value;
+  getValue(el: MuiSlider) {
+    return el.value;
   }
 
   subscribe(el: MuiSlider, callback: (x: boolean) => void): void {

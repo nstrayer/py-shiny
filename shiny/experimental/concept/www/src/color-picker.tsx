@@ -64,8 +64,8 @@ export class ColorPickerInputBinding extends Shiny.InputBinding {
     return $(scope).find("color-picker");
   }
 
-  getValue(el: HTMLElement) {
-    return (el as ColorPicker).color;
+  getValue(el: ColorPicker) {
+    return el.color;
   }
 
   subscribe(el: ColorPicker, callback: (x: boolean) => void): void {
