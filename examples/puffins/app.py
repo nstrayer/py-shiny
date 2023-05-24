@@ -105,6 +105,7 @@ app_ui = c.page(
                     ],
                 ),
             ),
+            ui.output_text_verbatim("current_color", placeholder=True),
             name="Color Picker",
         ),
         c.tab(
@@ -115,7 +116,6 @@ app_ui = c.page(
             name="Collapser",
         ),
         c.sidebar(
-            ui.output_text_verbatim("current_color"),
             # Artwork by @allison_horst
             ui.tags.img(
                 src="palmerpenguins.png", width="80%", class_="mt-0 mb-2 mx-auto"

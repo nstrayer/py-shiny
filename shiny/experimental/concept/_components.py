@@ -119,7 +119,7 @@ def sidebar(
 
 
 def mui_slider(
-    *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: object
+    id: str, *args: TagChild | TagAttrs, _add_ws: bool = True, **kwargs: object
 ) -> Tag:
     """
     Create a <mui-slider> tag.
@@ -147,7 +147,7 @@ def mui_slider(
     for k, v in kwargs.items():
         kwargs[k] = attr_to_escaped_json(v)
 
-    return Tag("mui-slider", *args, _add_ws=_add_ws, **kwargs)
+    return Tag("mui-slider", *args, id=id, _add_ws=_add_ws, **kwargs)
 
 
 def attr_to_escaped_json(x: object) -> str:

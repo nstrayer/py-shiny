@@ -1,10 +1,12 @@
-import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import { createRoot } from "react-dom/client";
-import * as React from "react";
+import { CacheProvider } from "@emotion/react";
 import Slider from "@mui/material/Slider";
+import * as React from "react";
+import { createRoot } from "react-dom/client";
 
-// MuiSlider WebComponent
+// =============================================================================
+// MuiSlider
+// =============================================================================
 export class MuiSlider extends HTMLElement {
   value: number | number[];
   elAttributes: Record<string, object>;
@@ -13,6 +15,8 @@ export class MuiSlider extends HTMLElement {
   constructor() {
     super();
     const elAttributes = getAttributesAsObject(this);
+    // Don't pass along `id` to React component.
+    delete elAttributes["id"];
     this.elAttributes = convertPropertiesFromJson(elAttributes);
 
     this.value = Number(this.elAttributes["defaultValue"]) || -1;
@@ -86,7 +90,9 @@ Shiny.inputBindings.register(
 );
 
 
+// =============================================================================
 // Helper functions
+// =============================================================================
 
 function getAttributesAsObject(el: HTMLElement): Record<string, string> {
   let obj: Record<string, string> = {};
@@ -100,12 +106,12 @@ function getAttributesAsObject(el: HTMLElement): Record<string, string> {
 }
 
 function convertPropertiesFromJson(
-  obj: Record<string, string>,
+  obj: Record<string, string>
 ): Record<string, any> {
   for (let key in obj) {
     if (obj.hasOwnProperty(key) && typeof obj[key] === "string") {
       obj[key] = JSON.parse(obj[key] as string);
     }
-  };
+  }
   return obj;
 }
