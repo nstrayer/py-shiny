@@ -61,6 +61,7 @@ app_ui = c.page(
             name="Collapser",
         ),
         c.sidebar(
+            ui.output_text_verbatim("current_color"),
             # Artwork by @allison_horst
             ui.tags.img(
                 src="palmerpenguins.png", width="80%", class_="mt-0 mb-2 mx-auto"
@@ -127,6 +128,11 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.text
     def txt():
         return str(input.foo()) + ":" + str(input.foo1())
+
+    @output
+    @render.text
+    def current_color():
+        return str(input.color())
 
     @output
     @render.ui
