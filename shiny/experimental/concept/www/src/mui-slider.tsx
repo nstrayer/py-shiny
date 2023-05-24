@@ -12,12 +12,9 @@ export class MuiSlider extends HTMLElement {
 
   constructor() {
     super();
-    console.log(this);
     const elAttributes = getAttributesAsObject(this);
-    console.log(elAttributes);
     this.elAttributes = convertPropertiesFromJson(elAttributes);
 
-    console.log(this.elAttributes);
     this.value = Number(this.elAttributes["defaultValue"]) || -1;
     this.onChangeCallback = (x: boolean) => {};
   }
@@ -130,7 +127,6 @@ function convertPropertiesFromJson(
 ): Record<string, any> {
   for (let key in obj) {
     if (obj.hasOwnProperty(key) && typeof obj[key] === "string") {
-      console.log(obj[key]);
       obj[key] = JSON.parse(obj[key] as string);
     }
   };
