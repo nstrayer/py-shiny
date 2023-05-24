@@ -225,5 +225,9 @@ export class Collapsible extends LitElement {
       return;
     }
     this.opened = !this.opened;
+
+    // Trigger resize event so things inside the collapser are properly effected
+    window.dispatchEvent(new Event("resize"));
   }
 }
+customElements.define("shiny-collapsible", Collapsible);
