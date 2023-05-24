@@ -6,6 +6,7 @@ import { StarRating } from "./star-rating";
 import { Tab } from "./tab";
 import { Tabset } from "./tabset";
 import { Collapsible } from "./collapsible";
+import { SimpleNumberInput } from "./simple-number-input";
 
 // Prevent esbuild from tree-shaking these components away.
 ColorPicker;
@@ -16,3 +17,4 @@ StarRating;
 Tab;
 Tabset;
 Collapsible;
+SimpleNumberInput;

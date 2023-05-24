@@ -50,6 +50,11 @@ app_ui = c.page(
             name="Plot",
         ),
         c.tab(
+            Tag("simple-number-input", id="num_in"),
+            ui.output_text_verbatim("num_out"),
+            name="Number Input",
+        ),
+        c.tab(
             Tag("color-picker", id="color"),
             ui.div(
                 {"style": "max-width: 400px; margin-top: 15px;"},
@@ -182,6 +187,11 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.text
     def txt():
         return str(input.foo()) + ":" + str(input.foo1())
+
+    @output
+    @render.text
+    def num_out():
+        return str(input.num_in())
 
     @output
     @render.text

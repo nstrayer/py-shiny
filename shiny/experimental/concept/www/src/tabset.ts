@@ -3,7 +3,7 @@ import { LitElement, html, css } from "lit";
 type TabElements = { name: string; el: HTMLElement }[];
 export class Tabset extends LitElement {
   tabs: TabElements = [];
-  selected_tab_index: number = 2;
+  selected_tab_index: number = 1;
   static properties = {
     tabs: {},
     selected_tab_index: {},
