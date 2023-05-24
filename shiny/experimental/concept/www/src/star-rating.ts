@@ -4,7 +4,7 @@ export class StarRating extends LitElement {
   low: number = 0;
   high: number = 10;
   static properties = {
-    rating: {},
+    rating: { type: Number },
   };
 
   rating: number;
@@ -22,11 +22,6 @@ export class StarRating extends LitElement {
       padding: var(--size-2);
       gap: var(--size-2);
       font-size: var(--font-size-6);
-    }
-
-    .rating {
-      text-align: center;
-      user-select: none;
     }
 
     button {
@@ -63,31 +58,17 @@ export class StarRating extends LitElement {
   }
 
   render() {
-    const at_max = this.rating === this.high;
-    const at_min = this.rating === this.low;
-
     return html`
       <button
-        class="thumb_down ${at_min ? "disabled" : ""}"
+        class="thumb_down ${this.rating === this.low ? "disabled" : ""}"
         @click=${() => this.update_rating(-1)}
       >
         ➖
       </button>
-      ${at_max
-        ? html`<div class="rating">🤩</div>`
-        : at_min
-        ? html`<div class="rating">😫</div>`
-        : html`
-            <div
-              class="rating"
-              style="rotate:${(this.rating / (this.high - this.low)) * 180}deg"
-              title="Rating of ${this.rating}"
-            >
-              👎
-            </div>
-          `}
+      <emoji-reaction rating=${this.rating} low=${this.low} high=${this.high}>
+      </emoji-reaction>
       <button
-        class="thumb_up ${at_max ? "disabled" : ""}"
+        class="thumb_up ${this.rating === this.high ? "disabled" : ""}"
         @click=${() => this.update_rating(1)}
       >
         ➕
@@ -96,8 +77,48 @@ export class StarRating extends LitElement {
   }
 }
 
-customElements.define("star-rating", StarRating);
+class EmojiReaction extends LitElement {
+  low: number = 0;
+  high: number = 10;
+  static properties = {
+    rating: { type: Number },
+  };
 
+  rating: number;
+
+  // Styles are scoped to this element: they won't conflict with styles
+  // on the main page or in other components. Styling API can be exposed
+  // via CSS custom properties.
+  static styles = css`
+    :host {
+      font-size: var(--font-size-6);
+      text-align: center;
+      user-select: none;
+    }
+  `;
+
+  constructor() {
+    super();
+    this.rating = (this.low + this.high) / 2;
+  }
+
+  render() {
+    const at_max = this.rating === this.high;
+    const at_min = this.rating === this.low;
+    const rotation =
+      at_max || at_min ? 0 : (this.rating / (this.high - this.low)) * 180;
+    const emoji = at_max ? "🤩" : at_min ? "😫" : "👎";
+
+    return html`
+      <div style="rotate:${rotation}deg" title="Rating of ${this.rating}">
+        ${emoji}
+      </div>
+    `;
+  }
+}
+
+customElements.define("emoji-reaction", EmojiReaction);
+customElements.define("star-rating", StarRating);
 
 const Shiny = window.Shiny as Shiny;
 
