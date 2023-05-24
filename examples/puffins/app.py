@@ -23,17 +23,31 @@ numeric_cols: List[str] = df.select_dtypes(include=["float64"]).columns.tolist()
 species: List[str] = df["Species"].unique().tolist()
 species.sort()
 
-app_theme = {
-    "style": """
-    --accent-gradient: linear-gradient(
+app_css = """
+:not(:defined) { visibility: hidden;}
+
+body:has([choice="purple"]) {
+   --accent-gradient: var(--gradient-2);
+}
+
+body:has([choice="green"]) {
+  --accent-gradient: var(--gradient-4);
+  --sidebar-bg-color: var(--stone-10);
+  --sidebar-color: var(--stone-0);
+}
+
+body:has([choice="wild"]) {
+  --accent-gradient: linear-gradient(
       37deg in oklab,
       oklch(55% .45 350) 0%, oklch(100% .4 95) 115% 115%
     );
-    """
+    --sidebar-bg-color: oklch(55% .45 350);
+    --sidebar-color: var(--stone-0);
 }
+"""
 
 app_ui = c.page(
-    ui.head_content(ui.tags.style(":not(:defined) { visibility: hidden;}")),
+    ui.head_content(ui.tags.style(app_css)),
     shinyswatch.theme.pulse(),
     c.tabset(
         {"id": "tabset1"},
@@ -149,10 +163,9 @@ app_ui = c.page(
         # c.sidebar(
         #     ui.tags.h1("I'm another sidebar!"),
         # ),
-        Tag("shiny-footer", ui.tags.span("Experimental Shiny")),
+        Tag("shiny-footer", ui.tags.span("Experimental Shiny"), Tag("theme-chooser")),
         ui.tags.div("Puffins are cool", {"slot": "header"}),
     ),
-    app_theme,
 )
 
 

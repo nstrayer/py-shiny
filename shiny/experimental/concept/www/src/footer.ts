@@ -11,6 +11,13 @@ export class Footer extends LitElement {
     :host {
       display: block;
       position: relative;
+      width: 100%;
+    }
+
+    .footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
     }
   `;
 
