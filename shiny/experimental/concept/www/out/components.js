@@ -178,7 +178,7 @@ Error generating stack: `+i.message+`
       display: block;
       position: relative;
     }
-  `;customElements.define("shiny-tab",ss);var ls=class extends ge{constructor(){super();this.tabs=[];this.selected_tab_index=1;this.onChangeCallback=r=>{}}handleSlotchange(r){let n=r.target;if(!n)return;let o=n.assignedNodes({flatten:!0});this.tabs=o.reduce((i,a)=>{if(a instanceof HTMLElement&&a.tagName.toLowerCase()==="shiny-tab"){let s=a.attributes.getNamedItem("name")?.value;if(!s)return i;i.push({name:s,el:a})}return i},[]),this.select_tab()}select_tab(r=this.selected_tab_index){this.selected_tab_index=r,this.tabs.forEach((n,o)=>{let i=o===r,a=n.el.style.display==="none";!a&&!i&&($(n.el).trigger("hidden"),n.el.inert=!0,n.el.style.display="none"),a&&i&&($(n.el).trigger("shown"),n.el.inert=!1,n.el.style.display="block")}),this.onChangeCallback(!0)}current_tab_name(){return this.tabs[this.selected_tab_index].name}render(){return Oe`
+  `;customElements.define("shiny-tab",ss);var ls=class extends ge{constructor(){super();this.tabs=[];this.selected_tab_index=0;this.onChangeCallback=r=>{}}handleSlotchange(r){let n=r.target;if(!n)return;let o=n.assignedNodes({flatten:!0});this.tabs=o.reduce((i,a)=>{if(a instanceof HTMLElement&&a.tagName.toLowerCase()==="shiny-tab"){let s=a.attributes.getNamedItem("name")?.value;if(!s)return i;i.push({name:s,el:a})}return i},[]),this.select_tab()}select_tab(r=this.selected_tab_index){this.selected_tab_index=r,this.tabs.forEach((n,o)=>{let i=o===r,a=n.el.style.display==="none";!a&&!i&&($(n.el).trigger("hidden"),n.el.inert=!0,n.el.style.display="none"),a&&i&&($(n.el).trigger("shown"),n.el.inert=!1,n.el.style.display="block")}),this.onChangeCallback(!0)}current_tab_name(){return this.tabs[this.selected_tab_index].name}render(){return Oe`
       <div class="tabset">
         <div class="header">
           <slot name="header"></slot>
@@ -463,7 +463,7 @@ Error generating stack: `+i.message+`
     input:invalid + span {
       transform: scaleX(1);
     }
-  `;customElements.define("simple-number-input",cs);yA("simple-number-input");function iY(e,t,r){return Math.max(Math.min(e,r),t)}var fs=class extends ge{constructor(){super(...arguments);this.choices=["purple","green","wild"];this.choice="purple"}handle_change(r){this.choice=r.target.value,console.log(this.choice)}render(){return Oe`
+  `;customElements.define("simple-number-input",cs);yA("simple-number-input");function iY(e,t,r){return Math.max(Math.min(e,r),t)}var fs=class extends ge{constructor(){super(...arguments);this.choices=["purple","green","wild"];this.choice="purple"}handle_change(r){this.choice=r.target.value}render(){return Oe`
       <form>
         ${this.choices.map((r,n)=>Oe`
             <input

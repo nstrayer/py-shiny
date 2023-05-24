@@ -14,7 +14,6 @@ export class ThemeChooser extends LitElement {
   `;
   handle_change(e: InputEvent) {
     this.choice = (e.target as HTMLInputElement).value as Theme;
-    console.log(this.choice);
   }
   render() {
     return html`

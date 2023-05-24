@@ -160,9 +160,6 @@ app_ui = c.page(
             ui.input_switch("by_species", "Show species", value=True),
             ui.input_switch("show_margins", "Show marginal plots", value=True),
         ),
-        # c.sidebar(
-        #     ui.tags.h1("I'm another sidebar!"),
-        # ),
         Tag("shiny-footer", ui.tags.span("Experimental Shiny"), Tag("theme-chooser")),
         ui.tags.div("Puffins are cool", {"slot": "header"}),
     ),

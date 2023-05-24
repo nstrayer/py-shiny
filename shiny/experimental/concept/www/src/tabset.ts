@@ -3,7 +3,7 @@ import { LitElement, html, css } from "lit";
 type TabElements = { name: string; el: HTMLElement }[];
 export class Tabset extends LitElement {
   tabs: TabElements = [];
-  selected_tab_index: number = 1;
+  selected_tab_index: number = 0;
   static properties = {
     tabs: {},
     selected_tab_index: {},
@@ -206,8 +206,6 @@ export class Tabset extends LitElement {
 
 customElements.define("shiny-tabset", Tabset);
 
-
-
 // Shiny input binding
 const Shiny = window.Shiny as Shiny;
 
@@ -233,7 +231,4 @@ export class TabsetInputBinding extends Shiny.InputBinding {
   }
 }
 
-Shiny.inputBindings.register(
-  new TabsetInputBinding(),
-  "TabsetInputBinding"
-);
+Shiny.inputBindings.register(new TabsetInputBinding(), "TabsetInputBinding");
