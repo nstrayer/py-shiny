@@ -36,6 +36,7 @@ app_ui = c.page(
     ui.head_content(ui.tags.style(":not(:defined) { visibility: hidden;}")),
     shinyswatch.theme.pulse(),
     c.tabset(
+        {"id": "tabset1"},
         c.tab(
             Tag("star-rating", id="foo"),
             Tag("star-rating", id="foo1"),
@@ -121,6 +122,7 @@ app_ui = c.page(
             name="Collapser",
         ),
         c.sidebar(
+            ui.output_text_verbatim("current_tab"),
             # Artwork by @allison_horst
             ui.tags.img(
                 src="palmerpenguins.png", width="80%", class_="mt-0 mb-2 mx-auto"
@@ -155,6 +157,11 @@ app_ui = c.page(
 
 
 def server(input: Inputs, output: Outputs, session: Session):
+    @output
+    @render.text
+    def current_tab():
+        return f"Current tab: {input.tabset1()}"
+
     @reactive.Calc
     def filtered_df() -> pd.DataFrame:
         """Returns a Pandas data frame that includes only the desired rows"""

@@ -9,6 +9,8 @@ export class Tabset extends LitElement {
     selected_tab_index: {},
   };
 
+  onChangeCallback: (x: boolean) => void;
+
   // Styles are scoped to this element: they won't conflict with styles
   // on the main page or in other components. Styling API can be exposed
   // via CSS custom properties.
@@ -108,6 +110,7 @@ export class Tabset extends LitElement {
 
   constructor() {
     super();
+    this.onChangeCallback = (x: boolean) => {};
   }
 
   handleSlotchange(e: Event) {
@@ -160,6 +163,12 @@ export class Tabset extends LitElement {
         tab.el.style.display = "block";
       }
     });
+
+    this.onChangeCallback(true);
+  }
+
+  current_tab_name(): string {
+    return this.tabs[this.selected_tab_index].name;
   }
 
   render() {
@@ -196,3 +205,35 @@ export class Tabset extends LitElement {
 }
 
 customElements.define("shiny-tabset", Tabset);
+
+
+
+// Shiny input binding
+const Shiny = window.Shiny as Shiny;
+
+export class TabsetInputBinding extends Shiny.InputBinding {
+  constructor() {
+    super();
+  }
+
+  find(scope: HTMLElement): JQuery<HTMLElement> {
+    return $(scope).find("shiny-tabset");
+  }
+
+  getValue(el: Tabset) {
+    return el.current_tab_name();
+  }
+
+  subscribe(el: Tabset, callback: (x: boolean) => void): void {
+    el.onChangeCallback = callback;
+  }
+
+  unsubscribe(el: Tabset): void {
+    el.onChangeCallback = (x: boolean) => {};
+  }
+}
+
+Shiny.inputBindings.register(
+  new TabsetInputBinding(),
+  "TabsetInputBinding"
+);
