@@ -3,7 +3,7 @@ import { LitElement, html, css } from "lit";
 type TabElements = { name: string; el: HTMLElement }[];
 export class Tabset extends LitElement {
   tabs: TabElements = [];
-  selected_tab_index: number;
+  selected_tab_index: number = 2;
   static properties = {
     tabs: {},
     selected_tab_index: {},
@@ -108,7 +108,6 @@ export class Tabset extends LitElement {
 
   constructor() {
     super();
-    this.selected_tab_index = 0;
   }
 
   handleSlotchange(e: Event) {
@@ -142,17 +141,27 @@ export class Tabset extends LitElement {
     this.selected_tab_index = tab_index;
     this.tabs.forEach((tab, i) => {
       const is_selected = i === tab_index;
-      tab.el.style.display = is_selected ? "block" : "none";
-      // Make sure that screen readers know to not include the hidden tabs
-      tab.el.inert = !is_selected;
+      const currently_hidden = tab.el.style.display === "none";
+
+      // Is this tab the one being shifted away from?
+      const hiding_tab = !currently_hidden && !is_selected;
+      if (hiding_tab) {
+        $(tab.el).trigger("hidden");
+        // Make sure that screen readers know to not include the hidden tabs
+        tab.el.inert = true;
+        tab.el.style.display = "none";
+      }
+
+      // Is this tab the one being shifted to?
+      const showing_tab = currently_hidden && is_selected;
+      if (showing_tab) {
+        $(tab.el).trigger("shown");
+        tab.el.inert = false;
+        tab.el.style.display = "block";
+      }
     });
   }
 
-  // The render() method is called any time reactive properties change.
-  // Return HTML in a string template literal tagged with the `html`
-  // tag function to describe the component's internal DOM.
-  // Expressions can set attribute values, property values, event handlers,
-  // and child nodes/text.
   render() {
     return html`
       <div class="tabset">
@@ -184,10 +193,6 @@ export class Tabset extends LitElement {
       </div>
     `;
   }
-}
-
-function node_is_tab(node: Node): boolean {
-  return node instanceof HTMLElement && "shiny-tab" in node.dataset;
 }
 
 customElements.define("shiny-tabset", Tabset);
