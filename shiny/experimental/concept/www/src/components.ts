@@ -8,6 +8,7 @@ import { Tabset } from "./tabset";
 import { Collapsible } from "./collapsible";
 import { SimpleNumberInput } from "./simple-number-input";
 import { ThemeChooser } from "./theme-chooser";
+import { SimpleNumberOutput } from "./simple-number-output";
 
 // Prevent esbuild from tree-shaking these components away.
 ColorPicker;
@@ -19,4 +20,5 @@ Tab;
 Tabset;
 Collapsible;
 SimpleNumberInput;
+SimpleNumberOutput;
 ThemeChooser;

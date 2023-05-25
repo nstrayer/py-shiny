@@ -1,11 +1,18 @@
 import { LitElement, css, html } from "lit";
 import { make_input_binding } from "./make_input_binding";
+import {
+  make_value_change_emitter,
+  make_input_event_id,
+} from "./make_value_change_emitter";
 
 export class SimpleNumberInput extends LitElement {
   low: number = 0;
   high: number = 10;
   value: number = (this.low + this.high) / 2;
+
   onChangeCallback = (x: boolean) => {};
+  on_value_change = make_value_change_emitter(this, this.id);
+
   static properties = { value: { type: Number } };
   static styles = css`
     input {
@@ -33,7 +40,22 @@ export class SimpleNumberInput extends LitElement {
       this.low,
       this.high
     );
+    this.alert_of_change();
+  }
+
+  alert_of_change() {
     this.onChangeCallback(true); // Tell the output binding we've changed
+    this.on_value_change({ type: "number", value: this.value });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Attempt to send message about value as late as possible so watchers can still
+    // pick it up.
+    setTimeout(() => {
+      this.alert_of_change();
+    }, 2);
   }
   render() {
     return html`

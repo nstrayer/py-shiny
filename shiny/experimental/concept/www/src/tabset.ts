@@ -3,10 +3,10 @@ import { LitElement, html, css } from "lit";
 type TabElements = { name: string; el: HTMLElement }[];
 export class Tabset extends LitElement {
   tabs: TabElements = [];
-  selected_tab_index: number = 0;
+  selected_tab_index: number;
   static properties = {
     tabs: {},
-    selected_tab_index: {},
+    selected_tab_index: { type: Number },
   };
 
   onChangeCallback: (x: boolean) => void;
@@ -111,6 +111,7 @@ export class Tabset extends LitElement {
   constructor() {
     super();
     this.onChangeCallback = (x: boolean) => {};
+    this.selected_tab_index = 0;
   }
 
   handleSlotchange(e: Event) {

@@ -52,6 +52,12 @@ app_ui = c.page(
     c.tabset(
         {"id": "tabset1"},
         c.tab(
+            ui.tags.h2("No server needed!"),
+            Tag("simple-number-input", id="num_in_static"),
+            Tag("simple-number-output", id="num_out_static", watch="num_in_static"),
+            name="Static",
+        ),
+        c.tab(
             Tag("star-rating", id="foo"),
             Tag("star-rating", id="foo1"),
             ui.output_text_verbatim("txt"),
@@ -162,6 +168,7 @@ app_ui = c.page(
         ),
         Tag("shiny-footer", ui.tags.span("Experimental Shiny"), Tag("theme-chooser")),
         ui.tags.div("Puffins are cool", {"slot": "header"}),
+        selected_tab_index=2,
     ),
 )
 
